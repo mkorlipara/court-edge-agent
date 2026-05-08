@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  macOS launchd plist for weekly automatic pipeline updates.
+
+  INSTALL:
+    1. Copy this file:
+         cp docs/update_pipeline.plist.example \
+            ~/Library/LaunchAgents/com.court-edge-agent.update.plist
+
+    2. Edit WorkingDirectory and ProgramArguments to match your actual paths.
+
+    3. Load it:
+         launchctl load ~/Library/LaunchAgents/com.court-edge-agent.update.plist
+
+    4. Verify it's loaded:
+         launchctl list | grep court-edge
+
+  UNINSTALL:
+    launchctl unload ~/Library/LaunchAgents/com.court-edge-agent.update.plist
+    rm ~/Library/LaunchAgents/com.court-edge-agent.update.plist
+
+  MANUAL RUN (for testing):
+    launchctl start com.court-edge-agent.update
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.court-edge-agent.update</string>
+
+  <!-- Run every Monday at 06:00 local time -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Weekday</key>
+    <integer>1</integer>
+    <key>Hour</key>
+    <integer>6</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
+
+  <!-- !! UPDATE THESE PATHS !! -->
+  <key>WorkingDirectory</key>
+  <string>/Users/manav/Dev/court-edge-agent</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/manav/Dev/court-edge-agent/.venv/bin/python</string>
+    <string>/Users/manav/Dev/court-edge-agent/scripts/update_pipeline.py</string>
+    <string>--stale-days</string>
+    <string>7</string>
+  </array>
+
+  <key>StandardOutPath</key>
+  <string>/Users/manav/Dev/court-edge-agent/logs/update.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/manav/Dev/court-edge-agent/logs/update.log</string>
+
+  <!-- Retry if the machine was asleep at the scheduled time -->
+  <key>RunAtLoad</key>
+  <false/>
+</dict>
+</plist>

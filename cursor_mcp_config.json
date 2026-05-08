@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "court-edge-agent": {
+      "command": "/Users/manav/Dev/court-edge-agent/.venv/bin/python",
+      "args": ["-m", "court_edge_agent.mcp_server"],
+      "cwd": "/Users/manav/Dev/court-edge-agent",
+      "env": {
+        "PYTHONPATH": "/Users/manav/Dev/court-edge-agent/src"
+      }
+    }
+  }
+}

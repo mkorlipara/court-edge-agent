@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Environment
+.env
+.env.local
+
+# Data (keep structure, ignore actual data files)
+data/raw/*.csv
+data/raw/*.parquet
+data/raw/*.json
+data/raw/*.xlsx
+data/processed/*.csv
+data/processed/*.parquet
+data/models/*.pkl
+data/models/*.joblib
+data/models/*.json
+# Reference data is intentionally tracked (static season files)
+!data/reference/
+
+# Jupyter
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Type checking
+.pyright/
+.mypy_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# macOS
+.DS_Store
+
+# Docker
+*.log
+
+# SQLite
+*.db
+*.sqlite3
