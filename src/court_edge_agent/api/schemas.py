@@ -82,3 +82,42 @@ class PlayerHistoryResponse(BaseModel):
     player_name: str
     market: str
     games: list[GameLogEntry]
+
+
+# ---------------------------------------------------------------------------
+# Today endpoint
+# ---------------------------------------------------------------------------
+
+class TodayGame(BaseModel):
+    home_team: str
+    away_team: str
+    game_time: str | None = None
+
+
+class TodayLine(BaseModel):
+    player_name: str
+    team: str | None = None
+    opponent: str | None = None
+    home_away: Literal["HOME", "AWAY"] | None = None
+    market: Literal["points", "rebounds", "assists", "threes_made"]
+    line: float
+    over_odds: int | None = None
+    under_odds: int | None = None
+    bookmaker: str
+    # Populated when we have local HGB model data for this player
+    projection: float | None = None
+    edge: float | None = None
+    lean: Literal["over", "under"] | None = None
+
+
+class TodayResponse(BaseModel):
+    date: str
+    games: list[TodayGame] = Field(default_factory=list)
+    top_edges: list[TodayLine] = Field(default_factory=list)
+    all_lines: list[TodayLine] = Field(default_factory=list)
+    total_lines: int = 0
+    scored_lines: int = 0
+    fetched_at: str
+    odds_api_available: bool = False
+    from_cache: bool = False
+    note: str | None = None

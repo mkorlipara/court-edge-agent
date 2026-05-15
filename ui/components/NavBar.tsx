@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Activity } from "lucide-react";
 
 const NAV_ITEMS = [
+  { href: "/today", label: "Today" },
   { href: "/", label: "Predict" },
   { href: "/slate", label: "Slate" },
 ];
